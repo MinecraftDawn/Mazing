@@ -5,6 +5,10 @@
 #ifndef MAZING_PATH_H
 #define MAZING_PATH_H
 
+#include <iostream>
+#include "Mazing.h"
+
+using namespace std;
 
 enum Dir {
     E = 0,
@@ -19,18 +23,59 @@ enum Dir {
 
 class Path {
 public:
-    Path(int x, int y,Dir source) {
-        pos = {x, y};
+    Path(int x, int y, Dir source) {
+        pos[0] = x;
+        pos[1] = y;
+        dir = source;
+
+        cout << "Current Pos " << y << " " << x << endl;
     }
 
     int *getPos() {
         return pos;
     }
 
+    void nextRoad() {
+
+        // E
+        check(pos[0] + 1, pos[1], W);
+        // SE
+        check(pos[0] + 1, pos[1] + 1, NW);
+        // S
+        check(pos[0], pos[1] + 1, N);
+        // SW
+        check(pos[0] - 1, pos[1] + 1, NE);
+        // W
+        check(pos[0] - 1, pos[1], E);
+        // NW
+        check(pos[0] - 1, pos[1] - 1, SE);
+        // N
+        check(pos[0], pos[1] - 1, S);
+        // NE
+        check(pos[0] + 1, pos[1] - 1, SW);
+    }
+
 private:
     int pos[2];
     int source;
     int dir;
+
+    bool check(int x, int y, Dir dir) {
+        if (x == 11 && y == 14) {
+            cout << "抵達" << endl;
+            return true;
+        }
+
+        Mazing m;
+        if (m.mazing2[y][x] == 0) {
+
+            if ((dir + 4) % 8 != source) {
+                (new Path(x - pos[0], y - pos[1], W))->nextRoad();
+            }
+        }
+        return true;
+
+    }
 
 };
 
