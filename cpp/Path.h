@@ -53,6 +53,9 @@ public:
         check(pos[0], pos[1] - 1, S);
         // NE
         check(pos[0] + 1, pos[1] - 1, SW);
+
+        cout << "Back" << endl;
+
     }
 
 private:
@@ -61,8 +64,8 @@ private:
     int dir;
 
     bool check(int x, int y, Dir dir) {
-        if (x == 11 && y == 14) {
-            cout << "æŠµé”" << endl;
+        if (y == 12 && x == 15) {
+            cout << "©è¹F" << endl;
             return true;
         }
 
@@ -70,7 +73,8 @@ private:
         if (m.mazing2[y][x] == 0) {
 
             if ((dir + 4) % 8 != source) {
-                (new Path(x - pos[0], y - pos[1], W))->nextRoad();
+                m.mazing2[pos[1]][pos[0]] = 1;
+                (new Path(x, y, dir))->nextRoad();
             }
         }
         return true;

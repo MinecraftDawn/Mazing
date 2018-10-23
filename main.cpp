@@ -10,7 +10,8 @@ int main() {
 
     mazing.createDefaultMazing();
 
-    Path first = *(new Path(0, 0, W));
+//    cout << mazing.mazing2[1][1];
+    Path first = *(new Path(1, 1, W));
     first.nextRoad();
     return 0;
 }
