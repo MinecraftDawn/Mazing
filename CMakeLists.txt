@@ -3,4 +3,4 @@ project(Mazing)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Mazing main.cpp Path.h Mazing.h)
+add_executable(Mazing main.cpp cpp/Path.h cpp/Mazing.h)
