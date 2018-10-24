@@ -84,7 +84,6 @@ public:
 private:
     int pos[2];
     int source;
-    int dir;
     Mazing m;
 
     bool check(int x, int y, Dir dir) {
