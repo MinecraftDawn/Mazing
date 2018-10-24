@@ -6,12 +6,14 @@
 #define MAZING_MAZING_H
 
 #include <iostream>
+#include <stack>
 
 using namespace std;
 
 class Mazing {
 public:
     static bool mazing2[14][17];
+    static stack<int> road;
 
 public:
     void setElement(int col, int row, bool wall) {
@@ -69,4 +71,5 @@ bool Mazing::mazing2[14][17] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                                 {1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1},
                                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
+stack<int> Mazing::road;
 #endif //MAZING_MAZING_H

@@ -26,7 +26,7 @@ public:
     Path(int x, int y, Dir source) {
         pos[0] = x;
         pos[1] = y;
-        dir = source;
+        this->source = source;
 
         cout << "Current Pos " << y << " " << x << endl;
     }
@@ -36,23 +36,46 @@ public:
     }
 
     void nextRoad() {
-
+        m.road.push(source);
         // E
-        check(pos[0] + 1, pos[1], W);
+        if (check(pos[0] + 1, pos[1], W)) {
+            return;
+        }
+
         // SE
-        check(pos[0] + 1, pos[1] + 1, NW);
+        if (check(pos[0] + 1, pos[1] + 1, NW)) {
+            return;
+        }
+
         // S
-        check(pos[0], pos[1] + 1, N);
+        if (check(pos[0], pos[1] + 1, N)) {
+            return;
+        }
+
         // SW
-        check(pos[0] - 1, pos[1] + 1, NE);
+        if (check(pos[0] - 1, pos[1] + 1, NE)) {
+            return;
+        }
+
         // W
-        check(pos[0] - 1, pos[1], E);
+        if (check(pos[0] - 1, pos[1], E)) {
+            return;
+        }
+
         // NW
-        check(pos[0] - 1, pos[1] - 1, SE);
+        if (check(pos[0] - 1, pos[1] - 1, SE)) {
+            return;
+        }
+
         // N
-        check(pos[0], pos[1] - 1, S);
+        if (check(pos[0], pos[1] - 1, S)) {
+            return;
+        }
+
         // NE
-        check(pos[0] + 1, pos[1] - 1, SW);
+        if (check(pos[0] + 1, pos[1] - 1, SW)) {
+            return;
+        }
 
         cout << "Back" << endl;
 
@@ -62,14 +85,26 @@ private:
     int pos[2];
     int source;
     int dir;
+    Mazing m;
 
     bool check(int x, int y, Dir dir) {
         if (y == 12 && x == 15) {
             cout << "©è¹F" << endl;
+
+            stack<int> s;
+            while (!m.road.empty()) {
+                s.push((m.road.top() + 4) % 8);
+                m.road.pop();
+            }
+
+            while (!s.empty()) {
+                cout << s.top() << " " << endl;
+                s.pop();
+            }
+
             return true;
         }
 
-        Mazing m;
         if (m.mazing2[y][x] == 0) {
 
             if ((dir + 4) % 8 != source) {
@@ -77,7 +112,7 @@ private:
                 (new Path(x, y, dir))->nextRoad();
             }
         }
-        return true;
+        return false;
 
     }
 
